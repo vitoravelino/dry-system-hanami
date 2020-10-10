@@ -46,7 +46,8 @@ module Dry
           unnecessary_part = extract_unnecessary_part(path)
           right_path = path.sub(LIB_FOLDER, '').sub(unnecessary_part, '')
 
-          resolver.call(Object.const_get(Inflecto.camelize(right_path)))
+          constant = config.inflector.constantize(config.inflector.camelize(right_path))
+          resolver.call(constant)
         end
 
         def load_file!(path)
